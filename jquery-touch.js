@@ -66,6 +66,14 @@
                 if (opts.stopPropagation) {
                     e.stopImmediatePropagation();
                 }
+				// 触发开始回调函数参数是绑定的元素
+				if($.type(opts.start) == 'function') {
+					opts.start({
+						target: e,
+						x: pageX,
+						y: pageY
+					});
+				}
 				function touchMove(e) {
 					var tmpTime;
 					// 可手动阻止默认事件
@@ -118,7 +126,8 @@
 				}
 				function touchEnd(e) {
 					var isSwipe = false;
-					touch.unbind(compatible._events.touchend);
+					self.unbind(compatible._events.touchmove);
+					self.unbind(compatible._events.touchend);
 					// 开始和移动事件都触发
 					if(!time && !newTime) {
 						time = newTime = null;
@@ -165,12 +174,6 @@
 				// 绑定移动事件
 				self.bind(compatible._events.touchmove, touchMove);
 				self.one(compatible._events.touchend, touchEnd);
-			}
-			// 触发开始回调函数参数是绑定的元素
-			if($.type(opts.start) == 'function') {
-				opts.start({
-					target: elem
-				});
 			}
 			// 给元素绑定touchstart事件
 			$(elem).bind(compatible._events.touchstart, touchStart);
