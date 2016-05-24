@@ -1,5 +1,7 @@
 ## 基于jQuery的轻量级touch事件库 v0.0.1
 
+demo: [photo-slide](http://sandbox.runjs.cn/show/pw5eg8dp)
+
 支持移动端和pc端
 
 * touchstart
